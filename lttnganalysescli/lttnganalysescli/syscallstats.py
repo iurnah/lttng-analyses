@@ -112,7 +112,9 @@ class SyscallsAnalysis(Command):
                     if s.ret >= 0:
                         key = "success"
                     else:
-                        key = errno.errorcode[-s.ret]
+                        #key = errno.errorcode[-s.ret]
+                        default = 'default' #hack to avoid the KeyError
+                        key = errno.errorcode.get(-s.ret, default)
                     if key in rets.keys():
                         rets[key] += 1
                     else:
